@@ -1,4 +1,26 @@
 # Ac2-Ciber
+## Questão 1: Desenvolvimento de Aplicação Web
+
+A aplicação foi desenvolvida para permitir o envio e recebimento de mensagens de forma segura entre dois usuários, utilizando **criptografia simétrica (AES)** e proteção contra **ataques CSRF**.
+
+### 1. Criptografia de Mensagens (AES)
+
+Para garantir a confidencialidade das mensagens, utilizei o algoritmo AES (Advanced Encryption Standard), que é um método de criptografia simétrica. Com ele, a mesma chave é usada para criptografar e descriptografar as mensagens.
+
+#### Funcionamento:
+- Antes de enviar uma mensagem, ela é criptografada com AES.
+- A chave AES é definida de forma fixa na aplicação (em ambiente seguro).
+- Ao receber uma mensagem, o destinatário a descriptografa usando a mesma chave.
+
+#### Exemplo de uso (Java):
+```java
+SecretKeySpec key = new SecretKeySpec("1234567890123456".getBytes(), "AES");
+Cipher cipher = Cipher.getInstance("AES");
+cipher.init(Cipher.ENCRYPT_MODE, key);
+byte[] encrypted = cipher.doFinal("Mensagem secreta".getBytes());
+```
+---
+
 ## Questão 2: Teoria de Criptografia
 
 A criptografia é uma técnica essencial para proteger dados, tornando-os ilegíveis para pessoas não autorizadas. Existem dois tipos principais: criptografia simétrica e criptografia assimétrica.
