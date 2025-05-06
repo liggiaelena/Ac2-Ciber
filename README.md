@@ -1,26 +1,64 @@
 # Ac2-Ciber
+
 ## Questão 1: Desenvolvimento de Aplicação Web
 
-A aplicação foi desenvolvida para permitir o envio e recebimento de mensagens de forma segura entre dois usuários, utilizando **criptografia simétrica (AES)** e proteção contra **ataques CSRF**.
+A aplicação desenvolvida permite a troca segura de mensagens entre dois usuários, utilizando **criptografia simétrica (AES)** e proteção contra **ataques CSRF**.
 
 ### 1. Criptografia de Mensagens (AES)
 
-Para garantir a confidencialidade das mensagens, utilizei o algoritmo AES (Advanced Encryption Standard), que é um método de criptografia simétrica. Com ele, a mesma chave é usada para criptografar e descriptografar as mensagens.
+A criptografia simétrica foi implementada usando o algoritmo AES (Advanced Encryption Standard), no qual a mesma chave é usada para criptografar e descriptografar mensagens.
 
 #### Funcionamento:
-- Antes de enviar uma mensagem, ela é criptografada com AES.
-- A chave AES é definida de forma fixa na aplicação (em ambiente seguro).
-- Ao receber uma mensagem, o destinatário a descriptografa usando a mesma chave.
+- O usuário digita a mensagem no front-end.
+- A mensagem é criptografada no back-end usando uma chave AES.
+- A mensagem criptografada é armazenada ou transmitida.
+- Ao receber, a mesma chave é usada para descriptografar e exibir a mensagem original.
 
-#### Exemplo de uso (Java):
-```java
-SecretKeySpec key = new SecretKeySpec("1234567890123456".getBytes(), "AES");
-Cipher cipher = Cipher.getInstance("AES");
-cipher.init(Cipher.ENCRYPT_MODE, key);
-byte[] encrypted = cipher.doFinal("Mensagem secreta".getBytes());
-```
+#### Justificativa da escolha:
+O AES é rápido, eficiente e seguro, sendo ideal para proteger o conteúdo das mensagens em um ambiente controlado onde a chave pode ser mantida de forma segura.
+
 ---
 
+### 2. Mitigação de CSRF
+
+Para proteger a aplicação contra ataques CSRF (Cross-site Request Forgery), foi implementado o uso de **tokens CSRF**.
+
+#### Estratégia:
+- Um token CSRF é gerado no backend e enviado ao cliente.
+- O token é armazenado em um campo oculto do formulário.
+- Toda requisição POST inclui esse token.
+- O servidor valida o token antes de processar a ação.
+
+#### Justificativa da escolha:
+O uso de tokens é uma das práticas mais eficazes para mitigar CSRF, pois garante que a requisição veio de uma origem confiável.
+
+---
+
+### 3. Interface Front-End
+
+A interface foi criada de forma simples e funcional:
+
+- Um **campo de texto** para digitar a mensagem.
+- Um **botão** para envio.
+- Uma **área de exibição** para as mensagens recebidas.
+
+As interações são feitas por meio de requisições HTTP protegidas com o token CSRF, e todas as mensagens trafegam criptografadas.
+
+---
+
+### 4. Testes e Validação
+
+- A criptografia foi validada interceptando a mensagem criptografada e tentando decodificá-la sem a chave — não foi possível.
+- A proteção CSRF foi testada simulando uma requisição maliciosa sem o token, que foi corretamente rejeitada pela aplicação.
+
+---
+
+### Tecnologias utilizadas
+
+- **Linguagem**: Java
+- **Criptografia**: AES (128 bits)
+- **Segurança**: token CSRF gerado e validado no backend
+- **Front-End**: HTML e JavaScript básico para envio/exibição das mensagens
 ## Questão 2: Teoria de Criptografia
 
 A criptografia é uma técnica essencial para proteger dados, tornando-os ilegíveis para pessoas não autorizadas. Existem dois tipos principais: criptografia simétrica e criptografia assimétrica.
