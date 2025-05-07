@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://jakarta.ee/xml/ns/jakartaee
+                             http://jakarta.ee/xml/ns/jakartaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>AC2 - Cibersegurança</display-name>
+
+    <servlet>
+        <servlet-name>MensagemServlet</servlet-name>
+        <servlet-class>com.exemplo.ac2.MensagemServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MensagemServlet</servlet-name>
+        <url-pattern>/mensagem</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
