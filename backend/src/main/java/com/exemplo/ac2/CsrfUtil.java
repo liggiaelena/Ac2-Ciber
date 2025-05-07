@@ -8,7 +8,6 @@ public class CsrfUtil {
 
     private static final String SESSION_TOKEN_KEY = "csrfToken";
 
-    // Gera e armazena o token na sessão
     public static String generateToken(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String token = UUID.randomUUID().toString();
@@ -16,13 +15,11 @@ public class CsrfUtil {
         return token;
     }
 
-    // Recupera o token da sessão
     public static String getSessionToken(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return (session != null) ? (String) session.getAttribute(SESSION_TOKEN_KEY) : null;
     }
 
-    // Valida se o token enviado no formulário bate com o da sessão
     public static boolean isValidToken(HttpServletRequest request, String formToken) {
         String sessionToken = getSessionToken(request);
         return sessionToken != null && sessionToken.equals(formToken);
