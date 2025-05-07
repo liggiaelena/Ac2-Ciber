@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Envio de Mensagem Segura</title>
+</head>
+<body>
+  <h2>Mensagem Segura com AES + CSRF</h2>
+
+  <form method="post" action="mensagem">
+    <input type="hidden" name="csrfToken" id="csrfToken" value="">
+    <input type="text" name="mensagem" placeholder="Digite sua mensagem criptografada">
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    fetch('/mensagem')
+      .then(response => response.text())
+      .then(html => {
+        const match = html.match(/name='csrfToken' value='([^']+)'/);
+        if (match) {
+          document.getElementById('csrfToken').value = match[1];
+        }
+      });
+  </script>
+</body>
+</html>
